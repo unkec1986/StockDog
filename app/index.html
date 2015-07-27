@@ -35,11 +35,37 @@
             <!-- Collect the nav links and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="nav navbar-nav navbar-right">
-
+                    <!-- [2] Add active class to necessary window -->
+                    <li ng-class="{active: activeView === 'dashboard'}">
+                        <a href="/">Dashboard</a>
+                    </li>
+                    <li ng-class="{active: activeView === 'watchlist'}" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            Watchlists <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-if="!watchlists.length" class="dropdown-header">
+                                No lists found
+                            </li>
+                            <!-- [3] Create a unique link for each watchlist -->
+                            <li ng-repeat="list in watchlists track by $index">
+                                <a href="/#/watchlist/{{list.id}}">{{last.name}}</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    
+    <!-- Main container -->
+    <div class="container-fluid" id="main">
+        <div ng-view=""></div>
+        
+        <div class="footer">
+            <p>Built with <span class="glyphicon glyphicon-heart"></span></p>
+        </div>
+    </div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
